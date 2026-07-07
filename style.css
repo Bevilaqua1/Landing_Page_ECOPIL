@@ -61,6 +61,11 @@ button:focus-visible {
   box-shadow: 0 2px 15px rgba(0,0,0,0.12);
 }
 
+.navbar-ecopil .nav-link.active {
+  background-color: rgba(255,255,255,0.3);
+  font-weight: 700;
+}
+
 /* Logo di navbar: bulat dengan bingkai tema */
 .navbar-logo-img {
     width: 45px;
@@ -656,6 +661,38 @@ button:focus-visible {
   border-color: rgba(255,255,255,0.3);
   max-width: 200px;
   margin: 1.5rem auto;
+}
+
+/* BACK TO TUP BUTTON */
+.back-to-top {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: var(--ecopil-green);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 998;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--dark);
+  transform: translateY(-3px);
 }
 
 /* ============================================

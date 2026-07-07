@@ -1,94 +1,66 @@
-// ============================================
-// INISIALISASI AOS (Animate on Scroll)
-// ============================================
-document.addEventListener('DOMContentLoaded', function () {
+// Tunggu sampai seluruh DOM siap
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ========== ACTIVE NAVBAR ON SCROLL ==========
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+  function setActiveNav() {
+    let current = '';
+    const scrollY = window.scrollY;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', setActiveNav);
+  setActiveNav(); // panggil sekali saat load
+
+  // ========== BACK TO TOP BUTTON ==========
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 500);
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ========== TAHUN OTOMATIS DI FOOTER ==========
+  const yearSpan = document.getElementById('year');
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+
+  // ========== AOS INIT ==========
   if (typeof AOS !== 'undefined') {
     AOS.init({
-      duration: 700,
-      easing: 'ease-out-cubic',
+      duration: 800,
       once: true,
-      offset: 80
+      offset: 50,
     });
   }
 
-  // Tahun otomatis di footer
-  var yearEl = document.getElementById('year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-
-  // Toggle ikon chevron pada tombol "Cara Pemesanan"
-  var metodePesan = document.getElementById('metodePesan');
-  if (metodePesan) {
-    metodePesan.addEventListener('shown.bs.collapse', function () {
-      document.querySelector('.cara-pesan-toggle').setAttribute('aria-expanded', 'true');
-    });
-    metodePesan.addEventListener('hidden.bs.collapse', function () {
-      document.querySelector('.cara-pesan-toggle').setAttribute('aria-expanded', 'false');
+  // ========== PRELOADER (jika ada) ==========
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    window.addEventListener('load', () => {
+      preloader.classList.add('hide');
+      setTimeout(() => preloader.remove(), 500);
     });
   }
+
 });
-
-// ============================================
-// SMOOTH SCROLL untuk semua tautan anchor internal
-// ============================================
-document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-  anchor.addEventListener('click', function (e) {
-    var targetId = this.getAttribute('href');
-    if (targetId.length > 1) {
-      var target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-
-        // Tutup menu navbar mobile setelah klik (jika terbuka)
-        var navbarCollapse = document.getElementById('navbarNav');
-        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-          var bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
-          bsCollapse.hide();
-        }
-      }
-    }
-  });
-});
-
-// ============================================
-// NAVBAR: efek bayangan saat halaman di-scroll
-// ============================================
-var mainNav = document.getElementById('mainNav');
-window.addEventListener('scroll', function () {
-  if (mainNav) {
-    if (window.scrollY > 40) {
-      mainNav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.18)';
-    } else {
-      mainNav.style.boxShadow = '0 2px 15px rgba(0,0,0,0.12)';
-    }
-  }
-});
-
-// ============================================
-// HIGHLIGHT MENU AKTIF SESUAI SECTION YANG TERLIHAT
-// ============================================
-var sections = document.querySelectorAll('section[id]');
-var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-
-function highlightActiveNav() {
-  var scrollY = window.pageYOffset;
-
-  sections.forEach(function (section) {
-    var sectionHeight = section.offsetHeight;
-    var sectionTop = section.offsetTop - 100;
-    var sectionId = section.getAttribute('id');
-
-    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-      navLinks.forEach(function (link) {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + sectionId) {
-          link.classList.add('active');
-        }
-      });
-    }
-  });
-}
-
-window.addEventListener('scroll', highlightActiveNav);
