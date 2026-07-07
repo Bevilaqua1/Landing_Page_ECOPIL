@@ -814,8 +814,9 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Kurangi animasi untuk semua elemen, kecuali preloader spinner */
-  *:not(.preloader-spinner) {
+  /* Nonaktifkan animasi hanya untuk elemen interaktif/transisi,
+     kecuali dekorasi hero, preloader, dan tombol mengambang */
+  *:not(.preloader-spinner):not(.bubble):not(.hero-blob):not(.hero-logo-ring):not(.whatsapp-float) {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
