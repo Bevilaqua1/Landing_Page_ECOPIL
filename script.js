@@ -43,19 +43,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========== PRELOADER ==========
-  const preloader = document.getElementById('preloader');
-  if (preloader) {
-    const hidePreloader = () => {
-      preloader.classList.add('hide');
-      setTimeout(() => {
-        if (preloader.parentNode) preloader.remove();
-      }, 500);
-    };
-    if (document.readyState === 'complete') {
-      hidePreloader();
-    } else {
-      window.addEventListener('load', hidePreloader);
-    }
+  // ========== PRELOADER ==========
+const preloader = document.getElementById('preloader');
+if (preloader) {
+  const hidePreloader = () => {
+    preloader.classList.add('hide');
+    setTimeout(() => {
+      if (preloader.parentNode) preloader.remove();
+    }, 500);
+  };
+
+  // Fallback: sembunyikan paksa setelah 3 detik
+  const timeout = setTimeout(hidePreloader, 3000);
+
+  // Sembunyikan saat halaman selesai dimuat (normal)
+  window.addEventListener('load', () => {
+    clearTimeout(timeout);  // batalkan timeout jika load terjadi duluan
+    hidePreloader();
+  });
+
+  // Jika DOM sudah selesai sebelum script berjalan (kasus langka)
+  if (document.readyState === 'complete') {
+    clearTimeout(timeout);
+    hidePreloader();
   }
+}
 
 });
