@@ -788,7 +788,7 @@ button:focus-visible {
    ============================================ */
 @media (max-width: 768px) {
   .hero-section {
-    min-height: auto;
+    min-height: auto; 
     padding-top: 2rem;
     padding-bottom: 4rem;
   }
@@ -814,6 +814,7 @@ button:focus-visible {
     right: 16px;
   }
   .whatsapp-float {
+    position: fixed;
     width: 50px;
     height: 50px;
     font-size: 1.4rem;
