@@ -198,6 +198,26 @@ button:focus-visible {
   border-radius: 20px;
   margin-bottom: 0.75rem;
 }
+
+/* ============================================
+   NAVBAR LOGO FIX
+   ============================================ */
+.navbar-logo-img {
+    width: 45px !important;
+    height: 45px !important;
+    object-fit: contain;
+    background: var(--ecopil-ice);
+    border-radius: 50%;
+    border: 2px solid var(--ecopil-green);
+    padding: 4px;
+    box-shadow: 0 0 0 3px var(--ecopil-mint);
+    transition: transform 0.3s ease;
+}
+
+.navbar-logo-img:hover {
+    transform: scale(1.1);
+}
+
 /* ============================================
    HERO SECTION
    ============================================ */
