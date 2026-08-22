@@ -11,11 +11,10 @@
   --white: #ffffff;
   --dark: #2d3e1f;
 
-  --font-display: 'Fredoka', 'Segoe UI', sans-serif;
+  /* KUNCI: Ubah ke Plus Jakarta Sans agar konsisten dan terlihat profesional */
+  --font-display: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  /* PERBAIKAN: variabel bantu untuk safe area (notch/gesture bar) di HP modern.
-     Jika browser tidak mendukung env(), fallback ke 0px. */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
@@ -491,17 +490,17 @@ button:focus-visible {
   background-color: var(--ecopil-green);
   border: none;
   color: white;
-  padding: 10px 25px;
+  padding: 12px 28px;
   border-radius: 30px;
   font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(128, 176, 66, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(128, 176, 66, 0.3);
 }
 
 .btn-ecopil:hover {
   background-color: #6a9a2e;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(128, 176, 66, 0.5);
+  box-shadow: 0 8px 25px rgba(128, 176, 66, 0.45);
   color: white;
 }
 
@@ -674,6 +673,22 @@ button:focus-visible {
 .price-text {
   color: var(--ecopil-yellow);
   font-weight: bold;
+}
+
+/* smoothing card */
+.feature-card, .product-card, .testimoni-card, .contact-card {
+    /* Bayangan berlapis yang lebih natural dan elegan */
+    box-shadow: 0 10px 30px rgba(45, 62, 31, 0.05), 0 1px 3px rgba(0,0,0,0.02);
+    /* Garis tepi tipis transparan bernuansa natural */
+    border: 1px solid rgba(128, 176, 66, 0.1);
+    /* Transisi yang menggunakan cubic-bezier agar terasa lebih natural saat di-hover */
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover, .product-card:hover, .testimoni-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(45, 62, 31, 0.1), 0 4px 12px rgba(0,0,0,0.03);
+    border-color: rgba(128, 176, 66, 0.25);
 }
 
 /* ============================================
