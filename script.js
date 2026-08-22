@@ -37,36 +37,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-  // ========== AOS ==========
-  if (typeof AOS !== 'undefined') {
-    AOS.init({ duration: 800, once: true, offset: 50 });
-  }
-
-  // ========== PRELOADER ==========
-  // ========== PRELOADER ==========
-const preloader = document.getElementById('preloader');
-if (preloader) {
-  const hidePreloader = () => {
-    preloader.classList.add('hide');
-    setTimeout(() => {
-      if (preloader.parentNode) preloader.remove();
-    }, 500);
+// ========== PRELOADER & AOS INITIALIZATION ==========
+  const preloader = document.getElementById('preloader');
+  
+  // Fungsi untuk menjalankan AOS hanya setelah preloader selesai
+  const initAOS = () => {
+    if (typeof AOS !== 'undefined') {
+      AOS.init({ 
+        duration: 800, 
+        once: true, 
+        offset: 50,
+        // Disable AOS di perangkat yang sangat kecil jika masih menyebabkan isu, 
+        // tapi dengan overflow-x: hidden di section, harusnya aman.
+      });
+      // Panggil refresh untuk memastikan penghitungan offset benar
+      setTimeout(() => AOS.refresh(), 100); 
+    }
   };
 
-  // Fallback: sembunyikan paksa setelah 3 detik
-  const timeout = setTimeout(hidePreloader, 3000);
+  if (preloader) {
+    const hidePreloader = () => {
+      preloader.classList.add('hide');
+      setTimeout(() => {
+        if (preloader.parentNode) preloader.remove();
+        // KUNCI: Jalankan AOS setelah preloader sepenuhnya hilang
+        initAOS();
+      }, 500); // 500ms adalah waktu transisi opacity
+    };
 
-  // Sembunyikan saat halaman selesai dimuat (normal)
-  window.addEventListener('load', () => {
-    clearTimeout(timeout);  // batalkan timeout jika load terjadi duluan
-    hidePreloader();
-  });
+    // Fallback: sembunyikan paksa setelah 2.5 detik (dipercepat sedikit)
+    const timeout = setTimeout(hidePreloader, 2500);
 
-  // Jika DOM sudah selesai sebelum script berjalan (kasus langka)
-  if (document.readyState === 'complete') {
-    clearTimeout(timeout);
-    hidePreloader();
+    // Sembunyikan saat halaman selesai dimuat
+    window.addEventListener('load', () => {
+      clearTimeout(timeout);
+      hidePreloader();
+    });
+
+    if (document.readyState === 'complete') {
+      clearTimeout(timeout);
+      hidePreloader();
+    }
+  } else {
+    // Jika tidak ada preloader, langsung jalankan AOS
+    initAOS();
   }
-}
 
 });
