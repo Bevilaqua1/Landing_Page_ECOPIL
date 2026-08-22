@@ -522,6 +522,28 @@ button:focus-visible {
 }
 
 /* ============================================
+   BACKGROUND KOLASE CUSTOM
+   ============================================ */
+
+/* Background untuk Section Tentang Kami (Nuansa putih bersih transparan) */
+#tentang-kami {
+    position: relative;
+    background: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), url('images/kolase-kegiatan.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Background untuk Section Cara Pesan (Nuansa hijau mint khas ECOPIL) */
+#cara-pesan {
+    position: relative;
+    background: linear-gradient(rgba(217, 244, 183, 0.90), rgba(217, 244, 183, 0.90)), url('images/kolase-produk.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ============================================
    SECTION BACKGROUNDS
    ============================================ */
 .bg-ice {
