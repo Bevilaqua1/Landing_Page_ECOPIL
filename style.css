@@ -236,11 +236,9 @@ button:focus-visible {
 
     border-radius: 50%;
 
-    border: 2px solid var(--ecopil-green);
-
     padding: 4px;
 
-    box-shadow: 0 0 0 3px var(--ecopil-mint);
+    box-shadow: 0 0 0 1px var(--ecopil-mint);
 
     transition: transform 0.3s ease;
 
@@ -313,20 +311,15 @@ button:focus-visible {
   background-color: rgba(255,255,255,0.2);
 
   transform: translateY(-2px);
-
 }
-
-/* ============================================
-   HERO SECTION
-   ============================================ */
+  /* hero section */
 .hero-section {
-  background: linear-gradient(160deg, var(--ecopil-ice) 0%, #cdeaf7 55%, var(--ecopil-blue) 100%);
-  min-height: 92vh;
-  color: var(--dark);
-  position: relative;
-  overflow: hidden;
-  padding-top: 3rem;
-  padding-bottom: 5rem;
+    position: relative;
+    min-height: 92vh;
+    color: var(--dark);
+    overflow: hidden;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
 }
 
 .hero-decor {
