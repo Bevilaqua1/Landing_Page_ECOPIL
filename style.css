@@ -476,6 +476,14 @@ button:focus-visible {
   display: block;
 }
 
+/* Gaya gambar itu sendiri */
+.hero-main-product {
+    max-height: 500px; /* Ukuran pas agar terlihat gagah namun tidak memenuhi layar */
+    width: auto;
+    object-fit: contain;
+    border-radius: 24px; /* Memberikan sudut melengkung halus pada sudut putih JPEG */
+    animation: floatProduct 6s ease-in-out infinite; /* Memanggil animasi melayang */
+}
 /* ============================================
    BUTTON CUSTOM
    ============================================ */

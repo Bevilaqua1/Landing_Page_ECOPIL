@@ -96,10 +96,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section d-flex align-items-center" style="background: linear-gradient(rgba(234, 249, 255, 0.88), rgba(234, 249, 255, 0.95)), url('images/kolase-produk.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+<!-- Hero Section -->
+    <section id="hero" class="hero-section d-flex align-items-center" style="background: url('images/kolase-produk.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="container position-relative">
             <div class="row align-items-center">
-                <div class="container position-relative"></div>
+                
                 <div class="col-lg-6 text-center text-lg-start" data-aos="fade-right">
                     <span class="eyebrow"><i class="fas fa-seedling me-2"></i>ECOPIL Indonesia</span>
                     <h1 class="display-5 fw-bold mt-3">
@@ -123,10 +124,16 @@
                 </div>
 
                 <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-delay="150">
-                    <div class="hero-product-wrap">
-                        <img src="images/all-produk.png" alt="Semua Varian Produk ECOPIL" class="img-fluid hero-main-product" width="300" height="300" loading="eager" style="max-height: 480px; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));">
-                    </div>
+                    <!-- Area Gambar Produk Hero -->
+                        <div class="hero-product-wrap position-relative d-inline-block">
+                            <!-- Efek Cahaya di Belakang Gambar -->
+                            <div class="product-glow"></div>
+                            
+                            <!-- Gambar Utama -->
+                            <img src="images/all-produk.png" alt="Semua Varian Produk ECOPIL" class="img-fluid hero-main-product" loading="eager">
+                        </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -707,17 +714,19 @@
                 <a href="https://www.facebook.com/profile.php?id=61581069813103" target="_blank" rel="noopener" class="btn btn-outline-light rounded-circle" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Facebook">
                     <i class="fab fa-facebook-f fs-5"></i>
                 </a>
-                <!-- Threads -->
+               <!-- Threads (Menggunakan Library FontAwesome bawaan) -->
                 <a href="https://www.threads.com/@ecopil.id?igshid=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener" class="btn btn-outline-light rounded-circle" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Threads">
-                    <i class="fa-brands fa-threads fs-5"></i>
+                    <img src="images/threads-icon.png" alt="Threads ECOPIL" style="width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1);">
                 </a>
-                <!-- Shopee -->
-                <a href="https://id.shp.ee/Z11acMqJ" target="_blank" rel="noopener" class="btn btn-warning rounded-circle text-white border-0" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Shopee">
-                    <i class="fas fa-shopping-bag fs-5"></i>
+                
+                <!-- Shopee (Gambar diubah jadi putih dengan filter CSS) -->
+                <a href="https://id.shp.ee/Z11acMqJ" target="_blank" rel="noopener" class="btn btn-outline-light rounded-circle" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Shopee">
+                    <img src="images/Shopee_icon.png" alt="Shopee ECOPIL" style="width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1);">
                 </a>
-                <!-- Tokopedia / TikTok Shop -->
-                <a href="https://vt.tokopedia.com/t/ZS9kwGr268wa8-TEwFi/" target="_blank" rel="noopener" class="btn btn-success rounded-circle border-0" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Tokopedia">
-                    <i class="fas fa-store fs-5"></i>
+                
+                <!-- Tokopedia / TikTok Shop (Gambar diubah jadi putih dengan filter CSS) -->
+                <a href="https://vt.tokopedia.com/t/ZS9kwGr268wa8-TEwFi/" target="_blank" rel="noopener" class="btn btn-outline-light rounded-circle" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" aria-label="Tokopedia">
+                    <img src="images/tokopedia-icon.png" alt="Tokopedia ECOPIL" style="width: 26px; height: 26px; object-fit: contain; filter: brightness(0) invert(1);">
                 </a>
             </div>
             <hr class="footer-divider">
