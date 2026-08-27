@@ -31,7 +31,7 @@ html {
      konteks scrolling body, sehingga tombol fixed bisa bergeser/hilang dari
      viewport saat halaman discroll. Menaruhnya di <html> jauh lebih aman
      dan tetap mencegah scroll horizontal yang tidak diinginkan. */
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   /* PERBAIKAN: pastikan tinggi penuh agar posisi fixed dihitung dari viewport asli */
   height: 100%;
   width: 100%;
@@ -49,7 +49,7 @@ body {
      karena kombinasi ini di beberapa browser mobile membuat body dianggap
      sebagai "scrolling container" baru, yang bisa merusak position:fixed
      (khususnya di iOS Safari lama & sebagian Android WebView). */
-  overflow-y: visible;
+  overflow-y: visible !important;
   /* PERBAIKAN: pastikan body tidak memiliki transform/filter yang bisa
      membuatnya menjadi containing block baru bagi elemen fixed. */
   transform: none;
@@ -321,7 +321,8 @@ button:focus-visible {
     background:
       radial-gradient(1100px 500px at 82% -10%, #E7F1D8 0%, transparent 60%),
       linear-gradient(180deg, var(--sage-bg) 0%, var(--cream) 100%);
-    padding: 96px 0 80px;
+    padding: 60px 0 50px !important; 
+    min-height: auto !important;
   }
   
   /* subtle organic texture — kept minimal, not busy */
@@ -1039,7 +1040,13 @@ button:focus-visible {
    RESPONSIF (Perbaikan pada Media Query)
    ============================================ */
 @media (max-width: 768px) {
-  /* ... (Biarkan kode hero & hero-logo TETAP SAMA) ... */
+  .hero-main-product {
+        max-width: 260px !important; /* Batasi lebar maksimal di HP */
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+        margin: 20px auto 0 auto; /* Posisi di tengah secara otomatis */
+    }
 
   .back-to-top {
     width: 40px;
