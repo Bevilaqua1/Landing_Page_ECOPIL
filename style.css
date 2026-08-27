@@ -1076,3 +1076,54 @@ button:focus-visible {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* =========================================
+   OPTIMASI MOBILE (Layar di bawah 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. Kurangi Ruang Kosong (Padding) */
+    .hero-section {
+        padding: 60px 0 40px; /* Lebih padat dari versi desktop (96px) */
+    }
+
+    /* 2. Tumpuk Teks dan Gambar Menjadi 1 Kolom */
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center; /* Memusatkan teks terlihat lebih elegan di HP */
+    }
+
+    /* 3. Pusatkan Logo dan Judul Utama */
+    .hero-title {
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+
+    /* 4. Sesuaikan Lead Paragraf agar Tidak Terlalu Lebar */
+    .hero-lead {
+        margin: 16px auto 0;
+        font-size: 0.95rem; /* Sedikit dikecilkan agar mudah dibaca */
+    }
+
+    /* 5. Optimasi Tombol (CTA) untuk Jempol */
+    .hero-cta {
+        justify-content: center;
+        flex-direction: column; /* Tombol tersusun atas-bawah */
+        gap: 12px;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    .btn-ecopil, 
+    .btn-ecopil-outline {
+        width: 100%; /* Tombol melebar penuh */
+        justify-content: center; /* Ikon dan teks berada di tengah */
+        padding: 12px 20px;
+    }
+
+    /* 6. Pusatkan Gambar Produk Utama */
+    .hero-main-product {
+        margin: 0 auto;
+        max-width: 280px; /* Mencegah gambar terlalu raksasa di layar kecil */
+    }
+}
