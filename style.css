@@ -1,65 +1,79 @@
 /* ============================================
-   PALET WARNA ECOPIL
+   VARIABEL & RESET
    ============================================ */
 :root {
   --ecopil-blue: #80c6e9;
   --ecopil-green: #80b042;
+  --ecopil-green-dark: #6a9a2e;
+  --ecopil-green-light: #eaf2de;
   --ecopil-yellow: #e9a71c;
   --ecopil-ice: #eaf9ff;
   --ecopil-mint: #d9f4b7;
   --ecopil-peach: #ffc698;
   --white: #ffffff;
   --dark: #2d3e1f;
+  --muted: #5f6b57;
+  --sage-bg: #e7f1d8;
+  --cream: #fbfaf6;
 
-  /* KUNCI: Ubah ke Plus Jakarta Sans agar konsisten dan terlihat profesional */
   --font-display: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
+
+  --navbar-height: 75px;
 }
 
 /* ============================================
-   GLOBAL
+   BASE
    ============================================ */
 html {
   scroll-behavior: smooth;
-  /* PERBAIKAN: overflow-x dipindahkan ke <html>, bukan <body>.
-     Di banyak browser mobile (terutama iOS Safari), memberi overflow-x:hidden
-     langsung pada <body> membuat elemen position:fixed ikut "terjebak" dalam
-     konteks scrolling body, sehingga tombol fixed bisa bergeser/hilang dari
-     viewport saat halaman discroll. Menaruhnya di <html> jauh lebih aman
-     dan tetap mencegah scroll horizontal yang tidak diinginkan. */
-  overflow-x: hidden !important;
-  /* PERBAIKAN: pastikan tinggi penuh agar posisi fixed dihitung dari viewport asli */
-  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
   width: 100%;
-  position:relative;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  color: #333333;
-  background-color: var(--white);
-  margin: 0;
-  padding: 0;
-  /* PERBAIKAN: overflow-x pada body DIHAPUS (dipindah ke html, lihat di atas).
-     Body TIDAK boleh punya overflow-x:hidden + overflow-y:visible sekaligus,
-     karena kombinasi ini di beberapa browser mobile membuat body dianggap
-     sebagai "scrolling container" baru, yang bisa merusak position:fixed
-     (khususnya di iOS Safari lama & sebagian Android WebView). */
-  overflow-y: visible !important;
-  /* PERBAIKAN: pastikan body tidak memiliki transform/filter yang bisa
-     membuatnya menjadi containing block baru bagi elemen fixed. */
-  transform: none;
-  min-height: 100%;
+  max-width: 100%;
+  height: 100%;
   position: relative;
 }
 
-h1, h2, h3, h4, h5, h6, .section-eyebrow, .navbar-brand {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
+body {
+  font-family: var(--font-body);
+  color: #333;
+  background-color: var(--white);
+  margin: 0;
+  padding-top: var(--navbar-height);
+  overflow-y: visible;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  position: relative;
+  transform: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Section diberi scroll-margin agar tidak tertutup navbar fixed */
+section {
+  scroll-margin-top: 80px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-eyebrow,
+.navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--dark);
 }
 
 a:focus-visible,
@@ -86,22 +100,22 @@ button:focus-visible {
    PRELOADER
    ============================================ */
 .preloader {
-    position: fixed;
-    inset: 0;
-    background: var(--ecopil-ice);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+  position: fixed;
+  inset: 0;
+  background: var(--ecopil-ice);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .preloader.hide {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
 }
 
 .preloader-content {
@@ -126,7 +140,6 @@ button:focus-visible {
   animation: spin 0.8s linear infinite;
 }
 
-/* Keyframes */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -137,491 +150,339 @@ button:focus-visible {
 }
 
 /* ============================================
-   GLOBAL
+   NAVBAR
    ============================================ */
-html {
-  scroll-behavior: smooth;
-  /* KUNCI: Gabungkan overflow-x: hidden dan overscroll-behavior-x 
-     agar mobile browser memblokir pelebaran layar akibat AOS fade-left/right */
-  overflow-x: hidden !important;
-  overscroll-behavior-x: none; /* Mencegah bounce effect horizontal */
-  width: 100vw; /* Menggunakan vw memaksa 100% dari viewport, bukan konten */
-  max-width: 100%; /* Mencegah horizontal scrollbar di desktop Windows */
-  position: relative;
+.navbar-ecopil {
+  background: linear-gradient(135deg, var(--ecopil-green), var(--ecopil-blue));
+  box-shadow: 0 2px 15px rgba(0,0,0,0.12);
 }
 
-body {
-  font-family: var(--font-body);
-  color: #333;
-  background-color: var(--white);
-  margin: 0;
-  padding: 0;
-  overflow-y: visible;
-  /* Pastikan overflow-x di body juga di-hidden untuk keamanan ekstra dari elemen AOS */
-  overflow-x: hidden !important; 
-  width: 100vw;
-  max-width: 100%;
-  position: relative;
-  /* Mencegah pergeseran karena elemen fixed */
-  transform: none; 
+.navbar-ecopil .nav-link.active {
+  background-color: rgba(255,255,255,0.3);
+  font-weight: 700;
 }
 
-/* KUNCI: Mencegah section menjadi melar akibat elemen children yang di-animasikan AOS keluar bounds */
-section {
+.navbar-logo-img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  background: var(--ecopil-ice);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 0 0 1px var(--ecopil-mint);
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo-img:hover {
+  transform: scale(1.1);
+}
+
+.navbar-ecopil .navbar-brand {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.navbar-ecopil .nav-link {
+  font-weight: 500;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: white !important;
+}
+
+.navbar-ecopil .nav-link:hover {
+  background-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   HERO SECTION (Desain Grid + Aksen Organik)
+   ============================================ */
+.hero-section {
+  position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: 100vw;
+  background: white;
+  padding: 60px 0 50px;
+  min-height: auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.hero-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-leaf-swoosh {
+  position: absolute;
+  top: 6%;
+  left: -4%;
+  width: 260px;
+  opacity: 0.35;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--ecopil-green-dark);
+  background: var(--white);
+  border: 1px solid #dce8cb;
+  padding: 7px 16px 7px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(76, 122, 40, 0.06);
+}
+
+.eyebrow i {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ecopil-green-light);
+  color: var(--ecopil-green);
+  border-radius: 50%;
+  font-size: 0.7rem;
+}
+
+.hero-title {
   font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 3.6vw, 3.15rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 22px 0 0;
   color: var(--dark);
 }
 
-a:focus-visible,
-button:focus-visible {
-  outline: 3px solid var(--ecopil-yellow);
-  outline-offset: 2px;
-}
-
-.section-eyebrow {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.hero-title .accent {
   color: var(--ecopil-green);
-  background: rgba(128, 176, 66, 0.1);
-  padding: 6px 16px;
-  border-radius: 20px;
-  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
 }
 
-/* ============================================
-
-   NAVBAR
-
-   ============================================ */
-
-.navbar-ecopil {
-
-  background: linear-gradient(135deg, var(--ecopil-green), var(--ecopil-blue));
-
-  box-shadow: 0 2px 15px rgba(0,0,0,0.12);
-
+.hero-title .accent svg {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 14px;
 }
 
-
-
-.navbar-ecopil .nav-link.active {
-
-  background-color: rgba(255,255,255,0.3);
-
-  font-weight: 700;
-
+.hero-lead {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 20px 0 0;
 }
 
-
-
-.navbar-logo-img {
-
-    width: 45px;
-
-    height: 45px;
-
-    object-fit: contain;
-
-    background: var(--ecopil-ice);
-
-    border-radius: 50%;
-
-    padding: 4px;
-
-    box-shadow: 0 0 0 1px var(--ecopil-mint);
-
-    transition: transform 0.3s ease;
-
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  flex-wrap: wrap;
 }
 
-
-
-.navbar-logo-img:hover {
-
-    transform: scale(1.1);
-
+.hero-trust {
+  display: flex;
+  gap: 28px;
+  margin-top: 36px;
+  flex-wrap: wrap;
 }
 
-
-
-.navbar-ecopil .navbar-brand {
-
-  font-family: var(--font-display);
-
-  font-size: 1.8rem;
-
-  letter-spacing: 1px;
-
-}
-
-
-
-.brand-droplet {
-
-  display: inline-flex;
-
+.trust-item {
+  display: flex;
   align-items: center;
+  gap: 9px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark);
+}
 
-  justify-content: center;
-
-  width: 34px;
-
-  height: 34px;
-
-  background: rgba(255,255,255,0.25);
-
+.trust-item .ico {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-
-  font-size: 1rem;
-
+  background: var(--white);
+  border: 1px solid #dce8cb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ecopil-green);
+  font-size: 0.75rem;
 }
 
-
-
-.navbar-ecopil .nav-link {
-
-  font-weight: 500;
-
-  margin: 0 5px;
-
-  transition: all 0.3s ease;
-
-  border-radius: 20px;
-
-  padding: 8px 16px !important;
-
-  color: white !important;
-
+/* Visual Produk di Hero */
+.hero-visual {
+  position: relative;
+  z-index: 1;
 }
 
+/* .arch-stage {
+  position: relative;
+  border-radius: 260px 260px 24px 24px;
+  background: linear-gradient(160deg, #eaf2de 0%, #fbfaf6 55%, #f3f6ec 100%);
+  border: 1px solid #e1eacf;
+  padding: 44px 30px 30px;
+  box-shadow:
+    0 30px 60px -20px rgba(51, 83, 27, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+} */
 
-
-.navbar-ecopil .nav-link:hover {
-
-  background-color: rgba(255,255,255,0.2);
-
-  transform: translateY(-2px);
+.arch-stage img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 18px 24px rgba(30, 42, 22, 0.16));
 }
 
+.arch-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid #e1eacf;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dark);
+  box-shadow: 0 12px 24px rgba(30, 42, 22, 0.12);
+}
 
-  /* ===== HERO ===== */
-  .hero-section{
-    position:relative;
-    overflow:hidden;
-    background:
-      radial-gradient(1100px 500px at 82% -10%, #E7F1D8 0%, transparent 60%),
-      linear-gradient(180deg, var(--sage-bg) 0%, var(--cream) 100%);
-    padding: 60px 0 50px !important; 
-    min-height: auto !important;
-  }
-  
-  /* subtle organic texture — kept minimal, not busy */
-  .hero-decor{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
-  }
-  .hero-leaf-swoosh{
-    position:absolute;
-    top:6%;
-    left:-4%;
-    width:260px;
-    opacity:0.35;
-  }
-  .hero-dot-field{
-    position:absolute;
-    bottom:8%;
-    left:6%;
-    width:120px;
-    opacity:0.5;
-  }
+.arch-badge i {
+  color: var(--ecopil-yellow);
+}
 
-  .hero-grid{
-    position:relative;
-    z-index:1;
-    display:grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 48px;
-    align-items:center;
-  }
+.badge-topright {
+  top: 13%;
+  right: 15%;
+}
 
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:var(--font-body);
-    font-weight:600;
-    font-size:0.8rem;
-    letter-spacing:0.02em;
-    color: var(--ecopil-green-dark);
-    background: var(--white);
-    border: 1px solid #DCE8CB;
-    padding:7px 16px 7px 12px;
-    border-radius:999px;
-    box-shadow: 0 2px 8px rgba(76,122,40,0.06);
-  }
-  .eyebrow i{
-    width:20px; height:20px;
-    display:inline-flex; align-items:center; justify-content:center;
-    background: var(--ecopil-green-light);
-    color: var(--ecopil-green);
-    border-radius:50%;
-    font-size:0.7rem;
-  }
+.badge-bottomleft {
+  bottom: 10%;
+  left: 5%;
+}
 
-  .hero-title{
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(2.1rem, 3.6vw, 3.15rem);
-    line-height: 1.12;
-    letter-spacing: -0.01em;
-    margin: 22px 0 0;
-    color: var(--dark);
-  }
-  .hero-title .accent{
-    color: var(--ecopil-green);
-    position: relative;
-    display: inline-block;
-  }
-  .hero-title .accent svg{
-    position:absolute;
-    left:0;
-    bottom:-10px;
-    width:100%;
-    height:14px;
-  }
-
-  .hero-lead{
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--muted);
-    max-width: 480px;
-    margin: 20px 0 0;
-  }
-
-  .hero-cta{
-    display:flex;
-    gap:14px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-  }
-  .btn-ecopil{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family: var(--font-body);
-    font-weight:600;
-    font-size: 0.95rem;
-    padding: 14px 26px;
-    border-radius: 12px;
-    background: var(--ecopil-green);
-    color: var(--white);
-    text-decoration:none;
-    box-shadow: 0 10px 24px rgba(76,122,40,0.28);
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    border: 1px solid var(--ecopil-green);
-  }
-  .btn-ecopil:hover{
-    background: var(--ecopil-green-dark);
-    border-color: var(--ecopil-green-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(76,122,40,0.34);
-    color:#fff;
-  }
-  .btn-ecopil-outline{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family: var(--font-body);
-    font-weight:600;
-    font-size: 0.95rem;
-    padding: 14px 24px;
-    border-radius: 12px;
-    background: transparent;
-    color: var(--dark);
-    text-decoration:none;
-    border: 1.5px solid #D6E0C7;
-    transition: all .18s ease;
-  }
-  .btn-ecopil-outline:hover{
-    border-color: var(--ecopil-green);
-    color: var(--ecopil-green-dark);
-    background: var(--white);
-  }
-
-  .hero-trust{
-    display:flex;
-    gap:28px;
-    margin-top: 36px;
-    flex-wrap:wrap;
-  }
-  .trust-item{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size: 0.85rem;
-    font-weight:600;
-    color: var(--dark);
-  }
-  .trust-item .ico{
-    width:30px; height:30px;
-    border-radius:50%;
-    background: var(--white);
-    border:1px solid #DCE8CB;
-    display:flex; align-items:center; justify-content:center;
-    color: var(--ecopil-green);
-    font-size:0.75rem;
-  }
-
-  /* ===== PRODUCT VISUAL SIDE ===== */
-  .hero-visual{
-    position:relative;
-    z-index:1;
-  }
-  /* .arch-stage{
-    position:relative;
-    border-radius: 260px 260px 24px 24px;
-    background: linear-gradient(160deg, #EAF2DE 0%, #FBFAF6 55%, #F3F6EC 100%);
-    border: 1px solid #E1EACF;
-    padding: 44px 30px 30px;
-    box-shadow:
-      0 30px 60px -20px rgba(51,83,27,0.18),
-      inset 0 1px 0 rgba(255,255,255,0.6);
-  } */
-  .arch-stage img{
-    display:block;
-    width: 500px;
-    height:auto;
-    filter: drop-shadow(0 18px 24px rgba(30,42,22,0.16));
-  }
-  .arch-badge{
-    position:absolute;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background: var(--white);
-    border: 1px solid #E1EACF;
-    padding: 10px 16px;
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight:700;
-    color: var(--dark);
-    box-shadow: 0 12px 24px rgba(30,42,22,0.12);
-  }
-  .arch-badge i{ color: var(--ecopil-amber); }
-  .badge-topright{ top: 13%; right: 15%; }
-  .badge-bottomleft{ bottom: 10%; left: -6%; }
-
-  @media (max-width: 991px){
-    .hero-grid{ grid-template-columns: 1fr; text-align:center; }
-    .hero-lead{ margin-left:auto; margin-right:auto; }
-    .hero-cta{ justify-content:center; }
-    .hero-trust{ justify-content:center; }
-    .arch-stage{ max-width: 420px; margin: 0 auto; }
-    .badge-topright, .badge-bottomleft{ display:none; }
-  }
-  @media (max-width: 480px){
-    .hero-section{ padding: 64px 0 56px; }
-    .hero-cta{ flex-direction:column; }
-    .btn-ecopil, .btn-ecopil-outline{ justify-content:center; }
-  }
 /* ============================================
-   BUTTON CUSTOM
+   BUTTONS
    ============================================ */
 .btn-ecopil {
-  background-color: var(--ecopil-green);
-  border: none;
-  color: white;
-  padding: 12px 28px;
-  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
   font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 15px rgba(128, 176, 66, 0.3);
+  font-size: 0.95rem;
+  padding: 14px 26px;
+  border-radius: 12px;
+  background: var(--ecopil-green);
+  color: var(--white);
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(76, 122, 40, 0.28);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  border: 1px solid var(--ecopil-green);
 }
 
 .btn-ecopil:hover {
-  background-color: #6a9a2e;
+  background: var(--ecopil-green-dark);
+  border-color: var(--ecopil-green-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(128, 176, 66, 0.45);
-  color: white;
+  box-shadow: 0 14px 28px rgba(76, 122, 40, 0.34);
+  color: #fff;
 }
 
 .btn-ecopil-outline {
-  background: transparent;
-  border: 2px solid var(--ecopil-green);
-  color: var(--ecopil-green);
-  padding: 10px 25px;
-  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
   font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--dark);
+  text-decoration: none;
+  border: 1.5px solid #d6e0c7;
+  transition: all 0.18s ease;
 }
 
 .btn-ecopil-outline:hover {
-  background-color: var(--ecopil-green);
-  color: white;
-  transform: translateY(-2px);
+  border-color: var(--ecopil-green);
+  color: var(--ecopil-green-dark);
+  background: var(--white);
 }
 
 /* ============================================
-   BACKGROUND KOLASE CUSTOM
+   BACKGROUND KOLASE
    ============================================ */
-
-/* Background untuk Section Tentang Kami (Nuansa putih bersih transparan) */
 #tentang-kami {
-    position: relative;
-    background: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), url('/images/kolase-kegiatan.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)),
+    url('/images/kolase-kegiatan.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Background untuk Section Cara Pesan (Nuansa hijau mint khas ECOPIL) */
 #cara-pesan {
-    position: relative;
-    background: linear-gradient(rgba(217, 244, 183, 0.90), rgba(217, 244, 183, 0.90)), url('/images/kolase-produk.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background: linear-gradient(rgba(217, 244, 183, 0.90), rgba(217, 244, 183, 0.90)),
+    url('/images/kolase-produk.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
+.bg-ice { background-color: var(--ecopil-ice); }
+.bg-mint { background-color: var(--ecopil-mint); }
+
 /* ============================================
-   SECTION BACKGROUNDS
+   CARDS BASE
    ============================================ */
-.bg-ice {
-  background-color: var(--ecopil-ice);
+.feature-card,
+.product-card,
+.testimoni-card,
+.contact-card {
+  background: var(--white);
+  border: 1px solid rgba(128, 176, 66, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(45, 62, 31, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bg-mint {
-  background-color: var(--ecopil-mint);
+.feature-card:hover,
+.product-card:hover,
+.testimoni-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(45, 62, 31, 0.1), 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-color: rgba(128, 176, 66, 0.25);
 }
 
 /* ============================================
-   KEUNGGULAN / FEATURE CARDS
+   FEATURE CARD
    ============================================ */
 .feature-card {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 2.5rem 1.75rem;
   height: 100%;
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+  padding: 2.5rem 1.75rem;
 }
 
 .feature-icon {
@@ -636,41 +497,30 @@ button:focus-visible {
   color: white;
 }
 
-.icon-green { background: linear-gradient(145deg, var(--ecopil-green), #6a9a2e); }
-.icon-blue  { background: linear-gradient(145deg, var(--ecopil-blue), #5aa8d4); }
-.icon-yellow{ background: linear-gradient(145deg, var(--ecopil-yellow), #c98d13); }
+.icon-green { background: linear-gradient(145deg, var(--ecopil-green), var(--ecopil-green-dark)); }
+.icon-blue { background: linear-gradient(145deg, var(--ecopil-blue), #5aa8d4); }
+.icon-yellow { background: linear-gradient(145deg, var(--ecopil-yellow), #c98d13); }
 
-.feature-card h3,
-.feature-card h4,
-.feature-card h5,
-.feature-card h6 {
+.feature-card h5 {
   font-weight: 600;
   margin-bottom: 0.75rem;
 }
 
 .feature-card p {
-  color: #5f6b57;
+  color: var(--muted);
   font-size: 0.95rem;
   margin-bottom: 0;
 }
 
 /* ============================================
-   PRODUK CARD
+   PRODUCT CARD
    ============================================ */
 .product-card {
-  background: var(--white);
   border-radius: 24px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  transition: all 0.35s ease;
   height: 100%;
   max-width: 100%;
-}
-
-.product-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
 .product-badge {
@@ -683,41 +533,30 @@ button:focus-visible {
   font-size: 0.85rem;
   padding: 6px 16px;
   border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .badge-blue { background: var(--ecopil-blue); }
 .badge-peach { background: var(--ecopil-peach); color: var(--dark); }
 
 .product-img-wrap {
-    height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .product-img {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    padding: 0;
-    margin: 0;
-    transition: transform 0.3s;
-}
-
-.product-illustration {
-  width: 140px;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
   height: auto;
-  transition: transform 0.35s ease;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.12));
-}
-
-.product-card:hover .product-illustration {
-  transform: scale(1.06) translateY(-4px);
+  object-fit: contain;
+  display: block;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.3s;
 }
 
 .product-body {
@@ -729,29 +568,9 @@ button:focus-visible {
   font-weight: bold;
 }
 
-/* smoothing card */
-.feature-card, .product-card, .testimoni-card, .contact-card {
-    /* Bayangan berlapis yang lebih natural dan elegan */
-    box-shadow: 0 10px 30px rgba(45, 62, 31, 0.05), 0 1px 3px rgba(0,0,0,0.02);
-    /* Garis tepi tipis transparan bernuansa natural */
-    border: 1px solid rgba(128, 176, 66, 0.1);
-    /* Transisi yang menggunakan cubic-bezier agar terasa lebih natural saat di-hover */
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.feature-card:hover, .product-card:hover, .testimoni-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(45, 62, 31, 0.1), 0 4px 12px rgba(0,0,0,0.03);
-    border-color: rgba(128, 176, 66, 0.25);
-}
-
 /* ============================================
    CARA PEMESANAN
    ============================================ */
-#cara-pesan {
-  position: relative;
-}
-
 .cara-pesan-toggle {
   display: inline-flex;
   align-items: center;
@@ -760,7 +579,7 @@ button:focus-visible {
   font-weight: 600;
   color: white;
   text-decoration: none;
-  background: linear-gradient(135deg, var(--ecopil-green), #6a9a2e);
+  background: linear-gradient(135deg, var(--ecopil-green), var(--ecopil-green-dark));
   padding: 16px 36px;
   border-radius: 40px;
   box-shadow: 0 10px 25px rgba(128, 176, 66, 0.35);
@@ -791,14 +610,14 @@ button:focus-visible {
   padding: 2rem 1rem;
   text-decoration: none;
   color: var(--dark);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   height: 100%;
 }
 
 .order-method-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.14);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
   color: var(--dark);
 }
 
@@ -815,24 +634,15 @@ button:focus-visible {
 }
 
 .order-method-card small {
-  color: #6b7a63;
+  color: var(--muted);
 }
 
 /* ============================================
    TESTIMONI
    ============================================ */
 .testimoni-card {
-  background-color: var(--white);
-  border-radius: 20px;
   padding: 2rem;
   position: relative;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-}
-
-.testimoni-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.1);
 }
 
 .testimoni-card::before {
@@ -878,9 +688,9 @@ button:focus-visible {
 .accordion-item {
   border: none;
   margin-bottom: 12px;
-  border-radius: 14px !important;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .accordion-button {
@@ -902,10 +712,8 @@ button:focus-visible {
    KONTAK
    ============================================ */
 .contact-card {
-  background: var(--white);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
 .contact-row {
@@ -957,20 +765,18 @@ button:focus-visible {
 }
 
 .footer-divider {
-  border-color: rgba(255,255,255,0.3);
+  border-color: rgba(255, 255, 255, 0.3);
   max-width: 200px;
   margin: 1.5rem auto;
 }
 
 /* ============================================
-   BACK TO TOP BUTTON
+   FLOATING BUTTONS
    ============================================ */
 .back-to-top {
-  position: fixed !important;
-  bottom: calc(100px + var(--safe-bottom)) !important;
-  /* KUNCI: Gunakan 'right' statis, jangan calc dengan var(--safe-right) untuk 
-     elemen fixed jika tidak mutlak diperlukan, karena bisa memicu bug repaint lambat di iOS */
-  right: 24px !important; 
+  position: fixed;
+  bottom: calc(100px + var(--safe-bottom));
+  right: 24px;
   width: 44px;
   height: 44px;
   background: var(--ecopil-green);
@@ -981,156 +787,166 @@ button:focus-visible {
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px) !important;
+  transform: translateY(20px) translateZ(0);
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
   z-index: 10000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  /* Memaksa elemen ini berada di layer komposisinya sendiri agar tidak terpengaruh layout shift parent-nya */
-  transform: translateZ(0); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .back-to-top.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) !important;
+  transform: translateY(0) translateZ(0);
 }
 
 .back-to-top:hover {
   background: var(--dark);
-  transform: translateY(-3px) !important;
+  transform: translateY(-3px) translateZ(0);
 }
 
-/* ============================================
-   WHATSAPP FLOATING BUTTON
-   ============================================ */
 .whatsapp-float {
-  position: fixed !important;
-  bottom: calc(24px + var(--safe-bottom)) !important;
-  /* KUNCI: 'right' statis */
-  right: 24px !important; 
+  position: fixed;
+  bottom: calc(24px + var(--safe-bottom));
+  right: 24px;
   width: 58px;
   height: 58px;
-  background: #25D366;
+  background: #25d366;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.6rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   z-index: 10000;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   animation: pulseWa 2.5s ease-in-out infinite;
-  /* Memaksa elemen berada di layer komposisi sendiri */
-  transform: translateZ(0); 
+  transform: translateZ(0);
 }
 
 .whatsapp-float:hover {
   color: white;
-  /* KUNCI: Menambahkan translateZ(0) pada state hover jika ada scale */
-  transform: scale(1.1) translateZ(0) !important; 
+  transform: scale(1.1) translateZ(0);
 }
 
 @keyframes pulseWa {
-  0%, 100% { box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 0 0 rgba(37,211,102,0.5); }
-  50% { box-shadow: 0 8px 20px rgba(0,0,0,0.25), 0 0 0 12px rgba(37,211,102,0); }
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 0 12px rgba(37, 211, 102, 0);
+  }
 }
 
 /* ============================================
-   RESPONSIF (Perbaikan pada Media Query)
+   RESPONSIVE
    ============================================ */
+@media (max-width: 991px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-lead {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta,
+  .hero-trust {
+    justify-content: center;
+  }
+
+  .arch-stage {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .badge-topright,
+  .badge-bottomleft {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
-  .hero-main-product {
-        max-width: 260px !important; /* Batasi lebar maksimal di HP */
-        width: 100% !important;
-        height: auto !important;
-        display: block;
-        margin: 20px auto 0 auto; /* Posisi di tengah secara otomatis */
-    }
+  .hero-section {
+    padding: 60px 0 40px;
+  }
+
+  .hero-grid {
+    gap: 32px;
+  }
+
+  .hero-title {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .hero-lead {
+    margin: 16px auto 0;
+    font-size: 0.95rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .btn-ecopil,
+  .btn-ecopil-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  .arch-stage img {
+    max-width: 260px;
+    margin: 20px auto 0;
+  }
 
   .back-to-top {
     width: 40px;
     height: 40px;
-    bottom: calc(85px + var(--safe-bottom)) !important;
-    right: 16px !important; /* Gunakan statis 16px */
-    z-index: 10000 !important;
-    transform: translateY(20px) translateZ(0) !important;
-  }
-
-  .back-to-top.visible {
-    transform: translateY(0) translateZ(0) !important;
+    bottom: calc(85px + var(--safe-bottom));
+    right: 16px;
   }
 
   .whatsapp-float {
     width: 50px;
     height: 50px;
     font-size: 1.4rem;
-    bottom: calc(16px + var(--safe-bottom)) !important;
-    right: 16px !important; /* Gunakan statis 16px */
-    z-index: 10000 !important;
-    transform: translateZ(0) !important; /* Wajib ada translateZ */
+    bottom: calc(16px + var(--safe-bottom));
+    right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 64px 0 56px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .btn-ecopil,
+  .btn-ecopil-outline {
+    justify-content: center;
   }
 }
 
 /* ============================================
-   AKSESIBILITAS: Kurangi animasi jika diinginkan
+   ACCESSIBILITY: REDUCED MOTION
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
-  /* Nonaktifkan animasi kecuali spinner, bubble, blob, ring, dan whatsapp */
-  *:not(.preloader-spinner):not(.bubble):not(.hero-blob):not(.hero-logo-ring):not(.whatsapp-float) {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-/* =========================================
-   OPTIMASI MOBILE (Layar di bawah 768px)
-   ========================================= */
-@media (max-width: 768px) {
-    /* 1. Kurangi Ruang Kosong (Padding) */
-    .hero-section {
-        padding: 60px 0 40px; /* Lebih padat dari versi desktop (96px) */
-    }
-
-    /* 2. Tumpuk Teks dan Gambar Menjadi 1 Kolom */
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        text-align: center; /* Memusatkan teks terlihat lebih elegan di HP */
-    }
-
-    /* 3. Pusatkan Logo dan Judul Utama */
-    .hero-title {
-        justify-content: center;
-        margin-bottom: 12px;
-    }
-
-    /* 4. Sesuaikan Lead Paragraf agar Tidak Terlalu Lebar */
-    .hero-lead {
-        margin: 16px auto 0;
-        font-size: 0.95rem; /* Sedikit dikecilkan agar mudah dibaca */
-    }
-
-    /* 5. Optimasi Tombol (CTA) untuk Jempol */
-    .hero-cta {
-        justify-content: center;
-        flex-direction: column; /* Tombol tersusun atas-bawah */
-        gap: 12px;
-        width: 100%;
-        margin-top: 24px;
-    }
-
-    .btn-ecopil, 
-    .btn-ecopil-outline {
-        width: 100%; /* Tombol melebar penuh */
-        justify-content: center; /* Ikon dan teks berada di tengah */
-        padding: 12px 20px;
-    }
-
-    /* 6. Pusatkan Gambar Produk Utama */
-    .hero-main-product {
-        margin: 0 auto;
-        max-width: 280px; /* Mencegah gambar terlalu raksasa di layar kecil */
-    }
 }

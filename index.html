@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <!-- FIX: Mencegah zoom in tidak sengaja di mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Primary Meta Tags -->
     <title>ECOPIL - Sabun Cuci Piring Alami, Non-SLS & Ramah Kulit Sensitif</title>
@@ -62,32 +62,11 @@
             <div class="preloader-spinner"></div>
         </div>
     </div>
-    <!-- Pengaman preloader -->
-    <script>
-    (function() {
-        var preloader = document.getElementById('preloader');
-        if (preloader) {
-            function hide() {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                preloader.style.pointerEvents = 'none';
-                setTimeout(function() {
-                    if (preloader.parentNode) {
-                        preloader.parentNode.removeChild(preloader);
-                    }
-                }, 500);
-            }
-            // Fallback jika window.load gagal ter-trigger
-            setTimeout(hide, 2000);
-            window.addEventListener('load', hide);
-        }
-    })();
-    </script>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-ecopil fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#hero">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#hero" aria-label="ECOPIL">
                 <img src="images/logo_ecopil.jpg" alt="ECOPIL Logo" class="navbar-logo-img">
             </a> 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Buka menu navigasi">
@@ -120,9 +99,9 @@
     <div class="hero-title-section" data-aos="fade-right">
             
             <!-- H1: Logo & Teks Proporsional -->
-            <h1 class="hero-title d-flex align-items-center flex-wrap gap-3 mb-2">
-                <img src="images/logo_ecopil.jpg" alt="Logo ECOPIL" style="height: 6em; width: auto; object-fit: contain; mix-blend-mode: multiply;">
-            </h1>
+            <div class="d-flex align-items-center flex-wrap gap-3 mb-2">
+                <img src="images/logo_ecopil.jpg" alt="Logo ECOPIL" style="height: 15em; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+            </div>
 
             <h1 class="hero-title">
                 Dampak Besar dari Aksi Kecil<br>
@@ -150,7 +129,7 @@
 
       <div class="hero-visual">
         <div class="arch-stage">
-          <img src="/images/all-produk.png" alt="Produk ECOPIL">
+          <img src="images/all-produk.png" alt="Produk ECOPIL">
           <div class="arch-badge badge-topright"><i class="fas fa-droplet"></i>100% Alami</div>
           <div class="arch-badge badge-bottomleft"><i class="fas fa-recycle"></i>Kemasan Eco</div>
         </div>
