@@ -321,7 +321,7 @@ button:focus-visible {
       linear-gradient(180deg, var(--sage-bg) 0%, var(--cream) 100%);
     padding: 96px 0 80px;
   }
-
+  
   /* subtle organic texture — kept minimal, not busy */
   .hero-decor{
     position:absolute;
@@ -379,7 +379,7 @@ button:focus-visible {
 
   .hero-title{
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 900;
     font-size: clamp(2.1rem, 3.6vw, 3.15rem);
     line-height: 1.12;
     letter-spacing: -0.01em;
